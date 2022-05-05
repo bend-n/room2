@@ -1,0 +1,87 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://WS.gd" type="Script" id=1]
+[ext_resource path="res://Chat.gd" type="Script" id=2]
+[ext_resource path="res://theme.tres" type="Theme" id=3]
+
+[node name="Main" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Chat" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+script = ExtResource( 2 )
+
+[node name="v" type="VBoxContainer" parent="Chat"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 64.0
+margin_right = -32.0
+margin_bottom = -60.0
+custom_constants/separation = 0
+
+[node name="h" type="HBoxContainer" parent="Chat/v"]
+margin_right = 960.0
+margin_bottom = 38.0
+
+[node name="whoami" type="LineEdit" parent="Chat/v/h"]
+margin_right = 200.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 200, 0 )
+text = "whoami"
+max_length = 30
+expand_to_text_length = true
+placeholder_text = "whoami"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Label" type="Label" parent="Chat/v/h"]
+margin_left = 204.0
+margin_right = 324.0
+margin_bottom = 38.0
+text = "room 2"
+
+[node name="p" type="Panel" parent="Chat/v"]
+margin_top = 38.0
+margin_right = 960.0
+margin_bottom = 438.0
+rect_min_size = Vector2( 896, 400 )
+
+[node name="scroller" type="ScrollContainer" parent="Chat/v/p"]
+margin_right = 896.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 0, 400 )
+
+[node name="labels" type="VBoxContainer" parent="Chat/v/p/scroller"]
+
+[node name="h2" type="HBoxContainer" parent="Chat/v"]
+margin_top = 438.0
+margin_right = 960.0
+margin_bottom = 476.0
+custom_constants/separation = 0
+
+[node name="text" type="LineEdit" parent="Chat/v/h2"]
+margin_right = 800.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 800, 0 )
+max_length = 27
+placeholder_text = "send message"
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="send" type="Button" parent="Chat/v/h2"]
+margin_left = 800.0
+margin_right = 960.0
+margin_bottom = 38.0
+focus_mode = 0
+size_flags_horizontal = 3
+enabled_focus_mode = 0
+text = "send"
+
+[node name="Tween" type="Tween" parent="Chat"]
+
+[connection signal="recieved" from="." to="Chat" method="_on_Main_recieved"]
+[connection signal="text_entered" from="Chat/v/h2/text" to="Chat" method="_on_text_entered"]
+[connection signal="pressed" from="Chat/v/h2/send" to="Chat" method="_on_send_pressed"]
