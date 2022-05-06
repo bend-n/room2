@@ -27,7 +27,12 @@ _global_script_class_icons={
 [application]
 
 config/name="room2"
+config/description="chatroom"
 run/main_scene="res://WS.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="room2"
+boot_splash/image="res://icon.png"
+boot_splash/bg_color=Color( 0.666667, 0.666667, 0.666667, 1 )
 config/icon="res://icon.png"
 
 [debug]
@@ -36,10 +41,13 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
+window/dpi/allow_hidpi=true
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=1
+quality/intended_usage/framebuffer_allocation.mobile=1
 environment/default_environment="res://default_env.tres"
