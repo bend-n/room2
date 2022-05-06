@@ -1,7 +1,9 @@
-[gd_resource type="Theme" load_steps=7 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://bg.tres" type="StyleBox" id=1]
-[ext_resource path="res://verdana.tres" type="DynamicFont" id=2]
+[ext_resource path="res://verdana-bold.tres" type="DynamicFont" id=2]
+[ext_resource path="res://verdana-normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://verdana-italicbold.tres" type="DynamicFont" id=4]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.196078, 0.309804, 0.396078, 1 )
@@ -24,4 +26,9 @@ LineEdit/colors/font_color = Color( 1, 1, 1, 1 )
 LineEdit/styles/focus = SubResource( 1 )
 LineEdit/styles/normal = SubResource( 2 )
 Panel/styles/panel = ExtResource( 1 )
+RichTextLabel/fonts/bold_font = ExtResource( 2 )
+RichTextLabel/fonts/bold_italics_font = ExtResource( 4 )
+RichTextLabel/fonts/italics_font = ExtResource( 4 )
+RichTextLabel/fonts/mono_font = ExtResource( 3 )
+RichTextLabel/fonts/normal_font = ExtResource( 3 )
 VScrollBar/styles/scroll = SubResource( 3 )

@@ -16,64 +16,83 @@ script = ExtResource( 2 )
 [node name="v" type="VBoxContainer" parent="Chat"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = 64.0
-margin_right = -32.0
-margin_bottom = -60.0
 custom_constants/separation = 0
 
 [node name="h" type="HBoxContainer" parent="Chat/v"]
-margin_right = 960.0
+margin_right = 1024.0
 margin_bottom = 38.0
+custom_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="Chat/v/h"]
+margin_right = 10.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 10, 0 )
 
 [node name="whoami" type="LineEdit" parent="Chat/v/h"]
-margin_right = 200.0
+margin_left = 10.0
+margin_right = 230.0
 margin_bottom = 38.0
-rect_min_size = Vector2( 200, 0 )
-text = "whoami"
+rect_min_size = Vector2( 220, 0 )
+text = "Anonymous"
 max_length = 30
 expand_to_text_length = true
-placeholder_text = "whoami"
+placeholder_text = "Anonymous"
 caret_blink = true
 caret_blink_speed = 0.5
 
-[node name="Label" type="Label" parent="Chat/v/h"]
-margin_left = 204.0
-margin_right = 324.0
+[node name="Panel2" type="Panel" parent="Chat/v/h"]
+margin_left = 230.0
+margin_right = 370.0
 margin_bottom = 38.0
+rect_min_size = Vector2( 140, 0 )
+
+[node name="Label" type="Label" parent="Chat/v/h/Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 text = "room 2"
+align = 1
+valign = 1
 
 [node name="p" type="Panel" parent="Chat/v"]
 margin_top = 38.0
-margin_right = 960.0
-margin_bottom = 438.0
+margin_right = 1024.0
+margin_bottom = 562.0
 rect_min_size = Vector2( 896, 400 )
+size_flags_vertical = 3
 
 [node name="scroller" type="ScrollContainer" parent="Chat/v/p"]
-margin_right = 896.0
-margin_bottom = 400.0
-rect_min_size = Vector2( 0, 400 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+rect_min_size = Vector2( 1000, 400 )
 
 [node name="labels" type="VBoxContainer" parent="Chat/v/p/scroller"]
 
 [node name="h2" type="HBoxContainer" parent="Chat/v"]
-margin_top = 438.0
-margin_right = 960.0
-margin_bottom = 476.0
+margin_top = 562.0
+margin_right = 1024.0
+margin_bottom = 600.0
 custom_constants/separation = 0
 
-[node name="text" type="LineEdit" parent="Chat/v/h2"]
-margin_right = 800.0
+[node name="Panel" type="Panel" parent="Chat/v/h2"]
+margin_right = 10.0
 margin_bottom = 38.0
-rect_min_size = Vector2( 800, 0 )
-max_length = 27
-placeholder_text = "send message"
+rect_min_size = Vector2( 10, 0 )
+
+[node name="text" type="LineEdit" parent="Chat/v/h2"]
+margin_left = 10.0
+margin_right = 900.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 890, 0 )
+max_length = 400
+context_menu_enabled = false
+placeholder_text = "message body goes here"
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="send" type="Button" parent="Chat/v/h2"]
-margin_left = 800.0
-margin_right = 960.0
+margin_left = 900.0
+margin_right = 1024.0
 margin_bottom = 38.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -83,5 +102,6 @@ text = "send"
 [node name="Tween" type="Tween" parent="Chat"]
 
 [connection signal="recieved" from="." to="Chat" method="_on_Main_recieved"]
+[connection signal="text_entered" from="Chat/v/h/whoami" to="Chat" method="_on_whoami_text_entered"]
 [connection signal="text_entered" from="Chat/v/h2/text" to="Chat" method="_on_text_entered"]
 [connection signal="pressed" from="Chat/v/h2/send" to="Chat" method="_on_send_pressed"]

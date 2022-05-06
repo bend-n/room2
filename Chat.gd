@@ -9,13 +9,24 @@ onready var scrollbar = scroller.get_v_scrollbar()
 
 
 func _ready():
-	text.context_menu_enabled = false
+	add_label(
+		"[b]server[color=#f0e67e]:[/color][/b] [b] welcome to [rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2![/shake][/rainbow]",
+		"server"
+	)
 
 
 func _on_Main_recieved(data):
-	var l = Label.new()
-	l.text = data
+	var string = "[b]%s[color=#f0e67e]:[/color][/b] %s" % [data.who, data.text]
+	add_label(string)
+
+
+func add_label(bbcode: String, name = "richtextlabel"):
+	var l = RichTextLabel.new()
+	l.name = name
 	labels.add_child(l)
+	l.rect_min_size = Vector2(1000, 40)
+	l.bbcode_enabled = true
+	l.append_bbcode(bbcode)
 	tween.interpolate_property(
 		scrollbar, "value", scrollbar.value, scrollbar.max_value, .5, Tween.TRANS_BOUNCE
 	)
@@ -23,12 +34,19 @@ func _on_Main_recieved(data):
 
 
 func _on_text_entered(t):
-	t = t.strip_edges()
 	if !t:
 		return
+	t = t.strip_edges()
 	text.text = ""
-	get_parent().send_packet(whoami.text + ": " + t)
+	get_parent().send_packet({"who": whoami.text, "text": t, "header": "C"})
 
 
 func _on_send_pressed():
 	_on_text_entered(text.text)
+
+
+func _on_whoami_text_entered(t):
+	if !t:
+		whoami.text = "Anonymous"
+	t = t.strip_edges()
+	whoami.text = t
