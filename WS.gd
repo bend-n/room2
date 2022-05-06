@@ -5,6 +5,7 @@ var ws = WebSocketClient.new()
 var timer = Timer.new()
 
 signal recieved(data)
+signal connected
 signal err(err)
 
 const HEADERS = {"chat": "C", "ping": "P"}
@@ -34,6 +35,7 @@ func ping():
 
 func _connection_established(protocol):
 	print("Connection established ", protocol)
+	emit_signal("connected")
 
 
 func _connection_closed(_err):

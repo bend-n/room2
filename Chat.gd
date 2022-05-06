@@ -10,7 +10,7 @@ onready var scrollbar = scroller.get_v_scrollbar()
 const server_says = "[b]server[color=#f0e67e]:[/color][/b] "
 
 
-func _ready():
+func _connected():
 	add_label(
 		(
 			"%s[b][matrix]welcome to [/matrix][rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2!"
@@ -18,6 +18,7 @@ func _ready():
 		),
 		"server"
 	)
+	yield(get_tree().create_timer(.4), "timeout")
 	add_label(
 		(
 			"%s[b][tornado freq=5 radius=10] you can use [/tornado][wave amp=20 freq=20][url=https://en.wikipedia.org/wiki/BBCode]bbcode"
