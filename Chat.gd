@@ -9,24 +9,37 @@ onready var scrollbar = scroller.get_v_scrollbar()
 
 const server_says = "[b]server[color=#f0e67e]:[/color][/b] "
 
+var regexes: Dictionary = {}
+
 
 func _connected():
 	add_label(
 		(
-			"%s[b][matrix]welcome to [/matrix][rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2!"
+			"%s[b][matrix]w[/matrix]elcome to [rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2!"
 			% server_says
 		),
 		"server"
 	)
 	yield(get_tree().create_timer(.4), "timeout")
 	add_label(
-		(
-			"%s[b][tornado freq=5 radius=10] you can use [/tornado][wave amp=20 freq=20][url=https://en.wikipedia.org/wiki/BBCode]bbcode"
-			% server_says
-		),
+		"%s[b]you can use a custom flavor of [wave amp=20 freq=20]markdown!" % server_says,
 		"howto",
 		Vector2(1000, 80)
 	)
+
+
+func _ready():
+	regexes["_"] = [reg("_([^_]+)_"), "[i]$1[/i]"]
+	regexes["**"] = [reg("\\*\\*([^\\*\\*]+)\\*\\*"), "[b]$1[/b]"]
+	regexes["*"] = [reg("\\*([^\\*]+)\\*"), "[i]$1[/i]"]
+	regexes["```"] = [reg("```([^`]+)```"), "[code]$1[/code]"]
+	regexes["`"] = [reg("`([^`]+)`"), "[code]$1[/code]"]
+
+
+func reg(src: String) -> RegEx:
+	var regex := RegEx.new()
+	regex.compile(src)
+	return regex
 
 
 func _on_Main_recieved(data):
@@ -63,9 +76,15 @@ func open_url(meta):
 func _on_text_entered(t):
 	if !t:
 		return
-	t = t.strip_edges()
+	t = translate_md(t.strip_edges())
 	text.text = ""
 	get_parent().send_packet({"who": whoami.text, "text": t, "header": "C"})
+
+
+func translate_md(input: String) -> String:
+	for replacement in regexes.values():
+		input = replacement[0].sub(input, replacement[1])
+	return input
 
 
 func _on_send_pressed():
