@@ -5,6 +5,9 @@ var ws = WebSocketClient.new()
 var timer = Timer.new()
 
 signal recieved(data)
+signal err(err)
+
+const HEADERS = {"chat": "C", "ping": "P"}
 
 
 func _ready():
@@ -15,7 +18,11 @@ func _ready():
 	ws.connect("connection_closed", self, "_connection_closed")
 	ws.connect("connection_error", self, "_connection_error")
 	ws.connect("data_received", self, "_data_recieved")
+	ws.connect("connection_failed", self, "connectwebsocket")
+	connectwebsocket()
 
+
+func connectwebsocket():
 	var url = "https://chat-server-gd.herokuapp.com/"
 	print("Connecting to " + url)
 	ws.connect_to_url(url)
@@ -30,17 +37,18 @@ func _connection_established(protocol):
 
 
 func _connection_closed(_err):
-	print("Connection closed")
+	emit_signal("err", "Connection closed")
 
 
 func _connection_error():
-	print("Connection error")
+	emit_signal("err", "Connection error")
 
 
 func _data_recieved():
 	var text = ws.get_peer(1).get_var()
-	emit_signal("recieved", text)
-	print("recieved %s" % text.text)
+	if text.header == HEADERS.chat:
+		emit_signal("recieved", text)
+		print("recieved %s" % text.text)
 
 
 func _process(_delta):

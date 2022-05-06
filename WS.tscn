@@ -101,6 +101,7 @@ text = "send"
 
 [node name="Tween" type="Tween" parent="Chat"]
 
+[connection signal="err" from="." to="Chat" method="_on_Main_err"]
 [connection signal="recieved" from="." to="Chat" method="_on_Main_recieved"]
 [connection signal="text_entered" from="Chat/v/h/whoami" to="Chat" method="_on_whoami_text_entered"]
 [connection signal="text_entered" from="Chat/v/h2/text" to="Chat" method="_on_text_entered"]

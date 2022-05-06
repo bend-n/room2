@@ -30,6 +30,10 @@ config/name="room2"
 run/main_scene="res://WS.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/stretch/mode="2d"
@@ -37,4 +41,5 @@ window/stretch/aspect="expand"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"
