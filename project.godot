@@ -13,14 +13,20 @@ _global_script_classes=[ {
 "class": "Network",
 "language": "GDScript",
 "path": "res://WS.gd"
+}, {
+"base": "RichTextEffect",
+"class": "RichTextMatrix",
+"language": "GDScript",
+"path": "res://matrix.gd"
 } ]
 _global_script_class_icons={
-"Network": ""
+"Network": "",
+"RichTextMatrix": ""
 }
 
 [application]
 
-config/name="chat app"
+config/name="room2"
 run/main_scene="res://WS.tscn"
 config/icon="res://icon.png"
 

@@ -10,7 +10,7 @@ onready var scrollbar = scroller.get_v_scrollbar()
 
 func _ready():
 	add_label(
-		"[b]server[color=#f0e67e]:[/color][/b] [b] welcome to [rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2![/shake][/rainbow]",
+		"[b]server[color=#f0e67e]:[/color] [matrix]welcome to[/matrix] [rainbow freq=.3 sat=.7][shake rate=20 level=25]room 2!",
 		"server"
 	)
 
@@ -23,9 +23,10 @@ func _on_Main_recieved(data):
 func add_label(bbcode: String, name = "richtextlabel"):
 	var l = RichTextLabel.new()
 	l.name = name
-	labels.add_child(l)
 	l.rect_min_size = Vector2(1000, 40)
+	l.install_effect(RichTextMatrix.new())
 	l.bbcode_enabled = true
+	labels.add_child(l)
 	l.append_bbcode(bbcode)
 	tween.interpolate_property(
 		scrollbar, "value", scrollbar.value, scrollbar.max_value, .5, Tween.TRANS_BOUNCE
