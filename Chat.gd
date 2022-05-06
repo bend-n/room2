@@ -9,7 +9,7 @@ onready var scrollbar = scroller.get_v_scrollbar()
 
 const server_says = "[b]server[color=#f0e67e]:[/color][/b] "
 
-var regexes: Dictionary = {}
+var regexes: Array = []
 
 
 func _connected():
@@ -29,11 +29,16 @@ func _connected():
 
 
 func _ready():
-	regexes["_"] = [reg("_([^_]+)_"), "[i]$1[/i]"]
-	regexes["**"] = [reg("\\*\\*([^\\*\\*]+)\\*\\*"), "[b]$1[/b]"]
-	regexes["*"] = [reg("\\*([^\\*]+)\\*"), "[i]$1[/i]"]
-	regexes["```"] = [reg("```([^`]+)```"), "[code]$1[/code]"]
-	regexes["`"] = [reg("`([^`]+)`"), "[code]$1[/code]"]
+	regexes.append([reg("_([^_]+)_"), "[i]$1[/i]"])
+	regexes.append([reg("\\*\\*([^\\*\\*]+)\\*\\*"), "[b]$1[/b]"])
+	regexes.append([reg("\\*([^\\*]+)\\*"), "[i]$1[/i]"])
+	regexes.append([reg("```([^`]+)```"), "[code]$1[/code]"])
+	regexes.append([reg("`([^`]+)`"), "[code]$1[/code]"])
+	regexes.append([reg("~~([^~]+)~~"), "[s]$1[/s]"])
+	regexes.append([reg("#([^#]+)#"), "[rainbow freq=.3 sat=.7]$1[/rainbow]"])
+	regexes.append([reg("@([^@]+)@"), "[wave amp=20 freq=20]$1[/wave]"])
+	regexes.append([reg("%([^%]+)%"), "[shake rate=20 level=25]$1[/shake]"])
+	regexes.append([reg("\\$([^\\$]+)\\$"), "[matrix]$1[/matrix]"])
 
 
 func reg(src: String) -> RegEx:
@@ -82,7 +87,7 @@ func _on_text_entered(t):
 
 
 func translate_md(input: String) -> String:
-	for replacement in regexes.values():
+	for replacement in regexes:
 		input = replacement[0].sub(input, replacement[1])
 	return input
 
