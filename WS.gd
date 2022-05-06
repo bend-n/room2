@@ -24,7 +24,7 @@ func _ready():
 
 
 func connectwebsocket():
-	var url = "https://chat-server-gd.herokuapp.com/"
+	var url = "wss://chat-server-gd.herokuapp.com/"
 	print("Connecting to " + url)
 	ws.connect_to_url(url)
 
