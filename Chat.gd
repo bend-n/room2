@@ -40,6 +40,18 @@ func _ready():
 	regexes.append([reg("%([^%]+)%"), "[shake rate=20 level=25]$1[/shake]"])
 	regexes.append([reg("\\$([^\\$]+)\\$"), "[matrix]$1[/matrix]"])
 
+# 	if OS.has_feature('JavaScript'):
+# 		text.connect("gui_input", self, "_on_text_input")
+
+# func _on_text_input(input : InputEvent):
+# 	if input is InputEventMouseButton:
+# 		popup_input()
+
+# func popup_input():
+# 	text.text = JavaScript.eval("""
+# 		window.prompt('Username')
+# 	""")
+
 
 func reg(src: String) -> RegEx:
 	var regex := RegEx.new()
